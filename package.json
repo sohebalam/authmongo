@@ -1,0 +1,23 @@
+{
+  "name": "authmongo",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next-auth/mongodb-adapter": "0.0.2-next.298",
+    "axios": "^0.25.0",
+    "mongodb": "^4.3.1",
+    "next": "12.0.8",
+    "next-auth": "^4.1.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.0.8"
+  }
+}
