@@ -19,6 +19,8 @@ const Register = () => {
       { email, password },
       config
     )
+
+    console.log(data)
   }
 
   return (

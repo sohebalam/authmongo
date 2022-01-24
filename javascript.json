@@ -1,0 +1,1078 @@
+{
+  "console log": {
+    "prefix": "clog",
+    "body": ["console.log($1)"],
+    "description": "console log"
+  },
+  "Mongo DB": {
+    "prefix": "mdb",
+    "body": [
+      "import mongoose from \"mongoose\"",
+      "",
+      "const connectDB = async () => {",
+      "  if (mongoose.connection.readyState >= 1) {",
+      "    return",
+      "  }",
+      "  mongoose",
+      "    .connect(process.env.MONGODB_URI, {",
+      "      useNewUrlParser: true,",
+      "      useFindAndModify: false,",
+      "      useCreateIndex: true,",
+      "      useUnifiedTopology: true,",
+      "    })",
+      "    .then((con) => console.log(\"connected to DB\"))",
+      "}",
+      "",
+      "export default connectDB",
+      ""
+    ],
+    "description": "Mongo DB"
+  },
+  "Mongoose Model": {
+    "prefix": "mmodel",
+    "body": [
+      "import mongoose from \"mongoose\"",
+      "",
+      "const userSchema = mongoose.Schema({",
+      "  name: {",
+      "    type: String,",
+      "  },",
+      "",
+      "  email: {",
+      "    type: String,",
+      "    required: true,",
+      "    unique: true,",
+      "  },",
+      "  password: {",
+      "    type: String,",
+      "    required: true,",
+      "  },",
+      "})",
+      "",
+      "",
+      "export default mongoose.models.User || mongoose.model(\"User\", userSchema)",
+      ""
+    ],
+    "description": "Mongoose Model"
+  },
+  "Export Const": {
+    "prefix": "exconst",
+    "body": ["export const $1 = async(req, res) => {$3}"],
+    "description": "Export Const"
+  },
+  "Server": {
+    "prefix": "eserver",
+    "body": [
+      "import express from \"express\"",
+      "import dotenv from \"dotenv\"",
+      "",
+      "import connectDB from \"./db.js\"",
+      "import router from \"./routes/Router.js\"",
+      "",
+      "dotenv.config()",
+      "",
+      "connectDB()",
+      "",
+      "const app = express()",
+      "",
+      "app.use(express.json())",
+      "",
+      "app.use(\"/\", router)",
+      "",
+      "const PORT = process.env.PORT || 5000",
+      "",
+      "app.listen(PORT, console.log(`Server running on port PORT ` + PORT))"
+    ],
+    "description": "Server"
+  },
+
+  "routes": {
+    "prefix": "routes",
+    "body": [
+      "import express from \"express\"",
+      "",
+      "const router = express.Router()",
+      "",
+      "// router.post(\"/login\", loginUser)",
+      "// router.post(\"/register\", registerUser)",
+      "",
+      "export default router"
+    ],
+    "description": "routes"
+  },
+  "Header": {
+    "prefix": "mheader",
+    "body": [
+      "import React from \"react\"",
+      "import {",
+      "  AppBar,",
+      "  Toolbar,",
+      "  IconButton,",
+      "  Box,",
+      "  Typography,",
+      "  Button,",
+      "  Link,",
+      "} from \"@material-ui/core\"",
+      "import MenuIcon from \"@material-ui/icons/Menu\"",
+      "import { makeStyles } from \"@material-ui/core/styles\"",
+      "import UserLoggedIn from \"../components/UserLoggedIn.js\"",
+      "",
+      "const useStyles = makeStyles((theme) => ({",
+      "  root: {",
+      "    flexGrow: 1,",
+      "  },",
+      "  menuButton: {",
+      "    marginRight: theme.spacing(2),",
+      "  },",
+      "  title: {",
+      "    flexGrow: 1,",
+      "  },",
+      "}))",
+      "",
+      "const NavBar = () => {",
+      "  const classes = useStyles()",
+      "  return (",
+      "    <div>",
+      "      <Box component=\"div\"></Box>",
+      "      <Box component=\"nav\">",
+      "        <AppBar position=\"static\" style={{ background: \"#FF007F\" }}>",
+      "          <Toolbar>",
+      "            <IconButton",
+      "              edge=\"start\"",
+      "              className={classes.menuButton}",
+      "              color=\"inherit\"",
+      "              aria-label=\"menu\"",
+      "            >",
+      "              <MenuIcon />",
+      "            </IconButton>",
+      "            <Typography variant=\"h6\" className={classes.title}>",
+      "              OFU",
+      "            </Typography>",
+      "",
+      "            <UserLoggedIn />",
+      "          </Toolbar>",
+      "        </AppBar>",
+      "      </Box>",
+      "    </div>",
+      "  )",
+      "}",
+      "",
+      "export default NavBar"
+    ],
+    "description": "Header"
+  },
+  "Footer": {
+    "prefix": "mfooter",
+    "body": [
+      "import { Box } from \"@material-ui/core\"",
+      "import React from \"react\"",
+      "",
+      "const Footer = () => {",
+      "  return (",
+      "    <Box style={{ marginTop: \"1rem\" }}>",
+      "      <div align=\"center\">",
+      "        <hr />",
+      "        &copy; OFU",
+      "      </div>",
+      "    </Box>",
+      "  )",
+      "}",
+      "",
+      "export default Footer"
+    ],
+    "description": "Footer"
+  },
+  "UserLoggedIn": {
+    "prefix": "muserloggedin",
+    "body": [
+      "import { Button, Typography, Link, Box } from \"@material-ui/core\"",
+      "import React from \"react\"",
+      "",
+      "import PersonIcon from \"@material-ui/icons/Person\"",
+      "import AssignmentIcon from \"@material-ui/icons/Assignment\"",
+      "import ShoppingCartIcon from \"@material-ui/icons/ShoppingCart\"",
+      "import ExitToAppIcon from \"@material-ui/icons/ExitToApp\"",
+      "",
+      "const UserLoggedIn = () => {",
+      "  const registerHandler = () => {}",
+      "  const loginHandler = () => {}",
+      "  const logoutHandler = () => {}",
+      "",
+      "  return (",
+      "    <>",
+      "      <Box",
+      "        style={{",
+      "          marginRight: \"0.25rem\",",
+      "          marginLeft: \"0.75rem\",",
+      "          marginTop: \"0.75\",",
+      "        }}",
+      "      >",
+      "        <Typography style={{ marginTop: \"0.25rem\" }}> </Typography>",
+      "      </Box>",
+      "      <Box style={{ marginTop: \"0.25rem\" }}>",
+      "        <Button",
+      "          color=\"inherit\"",
+      "          onClick={logoutHandler}",
+      "          style={{ marginRight: \"0.5rem\" }}",
+      "        >",
+      "          <ExitToAppIcon style={{ marginRight: \"0.25rem\" }} />",
+      "          LogOut",
+      "        </Button>",
+      "      </Box>{\" \"}",
+      "      <Button color=\"inherit\" onClick={registerHandler}>",
+      "        <Link style={{ color: \"white\" }} href=\"/register\">",
+      "          <AssignmentIcon style={{ marginRight: \"0.25rem\" }} />",
+      "          Register",
+      "        </Link>",
+      "      </Button>",
+      "      <Button color=\"inherit\" onClick={loginHandler}>",
+      "        <Link style={{ color: \"white\" }} href=\"/login\">",
+      "          <PersonIcon style={{ marginRight: \"0.25rem\" }} />",
+      "          Login",
+      "        </Link>",
+      "      </Button>",
+      "    </>",
+      "  )",
+      "}",
+      "export default UserLoggedIn",
+      ""
+    ],
+    "description": "UserLoggedIn"
+  },
+  "LoginPage": {
+    "prefix": "mLogin",
+    "body": [
+      "import React, { useState, useContext, useEffect } from \"react\"",
+      "// import Message from \"../components/Message\"",
+      "import { Grid, Button, Link, CircularProgress } from \"@material-ui/core\"",
+      "// import { useDispatch, useSelector } from \"react-redux\"",
+      "// import { login } from \"../actions/userActions\"",
+      "import Avatar from \"@material-ui/core/Avatar\"",
+      "import CssBaseline from \"@material-ui/core/CssBaseline\"",
+      "import TextField from \"@material-ui/core/TextField\"",
+      "import FormControlLabel from \"@material-ui/core/FormControlLabel\"",
+      "import Checkbox from \"@material-ui/core/Checkbox\"",
+      "import LockOutlinedIcon from \"@material-ui/icons/LockOutlined\"",
+      "import Typography from \"@material-ui/core/Typography\"",
+      "import { makeStyles } from \"@material-ui/core/styles\"",
+      "import Container from \"@material-ui/core/Container\"",
+      "",
+      "const useStyles = makeStyles((theme) => ({",
+      "  paper: {",
+      "    marginTop: theme.spacing(8),",
+      "    display: \"flex\",",
+      "    flexDirection: \"column\",",
+      "    alignItems: \"center\",",
+      "  },",
+      "  avatar: {",
+      "    margin: theme.spacing(1),",
+      "    backgroundColor: theme.palette.secondary.main,",
+      "  },",
+      "  form: {",
+      "    width: \"100%\", // Fix IE 11 issue.",
+      "    marginTop: theme.spacing(1),",
+      "  },",
+      "  submit: {",
+      "    margin: theme.spacing(3, 0, 2),",
+      "  },",
+      "}))",
+      "",
+      "const Login = ({ location, history }) => {",
+      "  const classes = useStyles()",
+      "",
+      "  const submitHandler = (e) => {",
+      "    e.preventDefault()",
+      "  }",
+      "",
+      "  return (",
+      "    <Container component=\"main\" maxWidth=\"xs\">",
+      "      <CssBaseline />",
+      "      <div className={classes.paper}>",
+      "        <Avatar className={classes.avatar}>",
+      "          <LockOutlinedIcon />",
+      "        </Avatar>",
+      "        <Typography component=\"h1\" variant=\"h5\">",
+      "          Sign in",
+      "        </Typography>",
+      "",
+      "        <form className={classes.form} noValidate onSubmit={submitHandler}>",
+      "          <TextField",
+      "            variant=\"outlined\"",
+      "            margin=\"normal\"",
+      "            required",
+      "            fullWidth",
+      "            id=\"email\"",
+      "            label=\"Email Address\"",
+      "            name=\"email\"",
+      "            autoComplete=\"email\"",
+      "            autoFocus",
+      "            // value={email}",
+      "            // onChange={(e) => setEmail(e.target.value)}",
+      "          />",
+      "          <TextField",
+      "            variant=\"outlined\"",
+      "            margin=\"normal\"",
+      "            required",
+      "            fullWidth",
+      "            name=\"password\"",
+      "            label=\"Password\"",
+      "            type=\"password\"",
+      "            id=\"password\"",
+      "            // value={password}",
+      "            autoComplete=\"current-password\"",
+      "            // onChange={(e) => setPassword(e.target.value)}",
+      "          />",
+      "          <FormControlLabel",
+      "            control={<Checkbox value=\"remember\" color=\"primary\" />}",
+      "            label=\"Remember me\"",
+      "          />",
+      "          <Button",
+      "            type=\"submit\"",
+      "            fullWidth",
+      "            variant=\"contained\"",
+      "            color=\"primary\"",
+      "            className={classes.submit}",
+      "          >",
+      "            Sign In",
+      "          </Button>",
+      "          <Grid container>",
+      "            <Grid item xs>",
+      "              <Link href=\"#\" variant=\"body2\">",
+      "                Forgot password?",
+      "              </Link>",
+      "            </Grid>",
+      "            <Grid item>",
+      "              <Link href={`/register`} variant=\"body2\">",
+      "                {\"Don't have an account? Sign Up\"}",
+      "              </Link>",
+      "            </Grid>",
+      "          </Grid>",
+      "        </form>",
+      "      </div>",
+      "    </Container>",
+      "  )",
+      "}",
+      "export default Login",
+      "",
+      ""
+    ],
+    "description": "LoginPage"
+  },
+
+  "AppPage": {
+    "prefix": "mApp",
+    "body": [
+      "import Header from \"./components/Header\"",
+      "import { BrowserRouter, Route } from \"react-router-dom\"",
+      "",
+      "import HomePage from \"./pages/HomePage\"",
+      "import LoginPage from \"./pages/LoginPage\"",
+      "import RegisterPage from \"./pages/RegisterPage\"",
+      "import Footer from \"./components/Footer\"",
+      "",
+      "function App() {",
+      "  return (",
+      "    <>",
+      "      <BrowserRouter>",
+      "        <Header />",
+      "        <Route path=\"/\" exact component={HomePage} />",
+      "        <Route path=\"/register\" exact component={RegisterPage} />",
+      "        <Route path=\"/login\" exact component={LoginPage} />",
+      "        <Footer />",
+      "      </BrowserRouter>",
+      "    </>",
+      "  )",
+      "}",
+      "",
+      "export default App"
+    ],
+
+    "description": "AppPage"
+  },
+  "Response ": {
+    "prefix": "res",
+    "body": ["res.status($1).json({message: $2 })"],
+    "description": "Response "
+  },
+  "UseEffect": {
+    "prefix": "useEffect",
+    "body": ["useEffect(() => {", "$1", "}, [])"],
+    "description": "UseEffect"
+  },
+  "useSelector": {
+    "prefix": "useSelector",
+    "body": [
+      "const state$1 = useSelector(state => state.state$1)",
+      " const { loading, error,$2 } = state$1"
+    ],
+    "description": "useSelector"
+  },
+  "useState": {
+    "prefix": "useState",
+    "body": ["const [$1 , $3set$1 ] = useState($2)"],
+    "description": "useState"
+  },
+  "useDispatch": {
+    "prefix": "useDispatch",
+    "body": ["const dispatch = useDispatch()"],
+    "description": "useDispatch"
+  },
+  "Event ": {
+    "prefix": "(e)",
+    "body": ["(e) => setEmail(e.target.value)"],
+    "description": "Event "
+  },
+  "emailpasswordname": {
+    "prefix": "emailpassword",
+    "body": ["const { email, password, name } = req.body"],
+    "description": "emailpasswordname"
+  },
+  "trycatch": {
+    "prefix": "trycatch",
+    "body": ["try {", "  $1", "} catch (error) {", "  ", "}"],
+    "description": "trycatch"
+  },
+  "userfindone": {
+    "prefix": "ufindone",
+    "body": ["const user = await User.findOne({ email })"],
+    "description": "userfindone"
+  },
+  "usercreate": {
+    "prefix": "ucreate",
+    "body": [
+      "const user = await User.create({",
+      "      name,",
+      "      email,",
+      "      password,",
+      "    })"
+    ],
+    "description": "usercreate"
+  },
+  "export default": {
+    "prefix": "edef",
+    "body": ["export default"],
+    "description": "export default"
+  },
+  "export const": {
+    "prefix": "econ",
+    "body": ["export const"],
+    "description": "export const"
+  },
+  "http header ": {
+    "prefix": "cconfig",
+    "body": [
+      "const config = {",
+      "      headers: {",
+      "        \"Content-Type\": \"application/json\", $1",
+      "          Authorization: `Bearer ${userInfo.token}`,$2",
+      "      },",
+      "    }"
+    ],
+    "description": "http header "
+  },
+  "gensalt": {
+    "prefix": "gensalt ",
+    "body": ["const salt = await bcrypt.genSalt(10)"],
+    "description": "gensalt"
+  },
+
+  "process.env": {
+    "prefix": "penv",
+    "body": ["process.env.JWT_SECRET"],
+    "description": "process.env"
+  },
+  "function definition": {
+    "prefix": "cfunction",
+    "body": ["const $1 = async ($2) => {$3}"],
+    "description": "function definition"
+  },
+
+  "approutes": {
+    "prefix": "app",
+    "body": ["app.$1(\"$2\", (req, res$3) => {$4})"],
+    "description": "routes"
+  },
+  "res json": {
+    "prefix": "rjson",
+    "body": ["res.json({$1})"],
+    "description": "res json"
+  },
+  "(req, res, next) ": {
+    "prefix": "rres",
+    "body": ["(req, res$1, next) "],
+    "description": "(req, res, next) "
+  },
+  "Register Page": {
+    "prefix": "mRegister",
+    "body": [
+      "import React from \"react\"",
+      "import Avatar from \"@material-ui/core/Avatar\"",
+      "import Button from \"@material-ui/core/Button\"",
+      "import CssBaseline from \"@material-ui/core/CssBaseline\"",
+      "import TextField from \"@material-ui/core/TextField\"",
+      "import FormControlLabel from \"@material-ui/core/FormControlLabel\"",
+      "import Checkbox from \"@material-ui/core/Checkbox\"",
+      "import Link from \"@material-ui/core/Link\"",
+      "import Grid from \"@material-ui/core/Grid\"",
+      "import Box from \"@material-ui/core/Box\"",
+      "import LockOutlinedIcon from \"@material-ui/icons/LockOutlined\"",
+      "import Typography from \"@material-ui/core/Typography\"",
+      "import { makeStyles } from \"@material-ui/core/styles\"",
+      "import Container from \"@material-ui/core/Container\"",
+      "",
+      "const useStyles = makeStyles((theme) => ({",
+      "  paper: {",
+      "    marginTop: theme.spacing(8),",
+      "    display: \"flex\",",
+      "    flexDirection: \"column\",",
+      "    alignItems: \"center\",",
+      "  },",
+      "  avatar: {",
+      "    margin: theme.spacing(1),",
+      "    backgroundColor: theme.palette.secondary.main,",
+      "  },",
+      "  form: {",
+      "    width: \"100%\", // Fix IE 11 issue.",
+      "    marginTop: theme.spacing(3),",
+      "  },",
+      "  submit: {",
+      "    margin: theme.spacing(3, 0, 2),",
+      "  },",
+      "}))",
+      "",
+      "export default function SignUp() {",
+      "  const classes = useStyles()",
+      "",
+      "  return (",
+      "    <Container component=\"main\" maxWidth=\"xs\">",
+      "      <CssBaseline />",
+      "      <div className={classes.paper}>",
+      "        <Avatar className={classes.avatar}>",
+      "          <LockOutlinedIcon />",
+      "        </Avatar>",
+      "        <Typography component=\"h1\" variant=\"h5\">",
+      "          Sign up",
+      "        </Typography>",
+      "        <form className={classes.form} noValidate>",
+      "          <Grid container spacing={2}>",
+      "            <Grid item xs={12} sm={6}>",
+      "              <TextField",
+      "                autoComplete=\"fname\"",
+      "                name=\"firstName\"",
+      "                variant=\"outlined\"",
+      "                required",
+      "                fullWidth",
+      "                id=\"firstName\"",
+      "                label=\"First Name\"",
+      "                autoFocus",
+      "              />",
+      "            </Grid>",
+      "            <Grid item xs={12} sm={6}>",
+      "              <TextField",
+      "                variant=\"outlined\"",
+      "                required",
+      "                fullWidth",
+      "                id=\"lastName\"",
+      "                label=\"Last Name\"",
+      "                name=\"lastName\"",
+      "                autoComplete=\"lname\"",
+      "              />",
+      "            </Grid>",
+      "            <Grid item xs={12}>",
+      "              <TextField",
+      "                variant=\"outlined\"",
+      "                required",
+      "                fullWidth",
+      "                id=\"email\"",
+      "                label=\"Email Address\"",
+      "                name=\"email\"",
+      "                autoComplete=\"email\"",
+      "              />",
+      "            </Grid>",
+      "            <Grid item xs={12}>",
+      "              <TextField",
+      "                variant=\"outlined\"",
+      "                required",
+      "                fullWidth",
+      "                name=\"password\"",
+      "                label=\"Password\"",
+      "                type=\"password\"",
+      "                id=\"password\"",
+      "                autoComplete=\"current-password\"",
+      "              />",
+      "            </Grid>",
+      "            <Grid item xs={12}>",
+      "              <FormControlLabel",
+      "                control={<Checkbox value=\"allowExtraEmails\" color=\"primary\" />}",
+      "                label=\"I want to receive inspiration, marketing promotions and updates via email.\"",
+      "              />",
+      "            </Grid>",
+      "          </Grid>",
+      "          <Button",
+      "            type=\"submit\"",
+      "            fullWidth",
+      "            variant=\"contained\"",
+      "            color=\"primary\"",
+      "            className={classes.submit}",
+      "          >",
+      "            Sign Up",
+      "          </Button>",
+      "          <Grid container justify=\"flex-end\">",
+      "            <Grid item>",
+      "              <Link href=\"#\" variant=\"body2\">",
+      "                Already have an account? Sign in",
+      "              </Link>",
+      "            </Grid>",
+      "          </Grid>",
+      "        </form>",
+      "      </div>",
+      "    </Container>",
+      "  )",
+      "}"
+    ],
+    "description": "Register Page"
+  },
+  "reactArrowFunctionExportComponent": {
+    "prefix": "rafce",
+    "body": [
+      "import React from 'react'",
+      "",
+      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}}",
+      ""
+    ],
+    "description": "Creates a React Arrow Function Component with ES7 module system"
+  },
+  "reducer": {
+    "prefix": "reducer",
+    "body": [
+      "export const $1 = ($2, action) => {",
+      "  switch (action.type) {",
+      "    case $3:",
+      "      return { loading: true }",
+      "    case $4:",
+      "      return { loading: false, $5 action.payload  }",
+      "    case $6:",
+      "      return { loading: false, error: action.payload }",
+      "    default:",
+      "      return state",
+      "  }",
+      "}"
+    ],
+    "description": "reducer"
+  },
+  "actioncreater": {
+    "prefix": "actioncreater",
+    "body": [
+      "export const $1 = ($2) => async (dispatch) => {",
+      "  try {",
+      "    dispatch({ type: $3 })",
+      "    ",
+      "    $6",
+      "",
+      "    ",
+      "",
+      "    dispatch({",
+      "      type: $4,",
+      "      payload: data,",
+      "    })",
+      "  } catch (error) {",
+      "    dispatch({",
+      "      type: $5,",
+      "      payload:",
+      "        error.response && error.response.data.message",
+      "          ? error.response.data.message",
+      "          : error.message,",
+      "    })",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "actioncreater"
+  },
+  "Token Generator": {
+    "prefix": "generatetoken",
+    "body": [
+      "export const generateToken = (id) => {",
+      "  return jwt.sign({ id }, \"$1JWT_SECRET\", { expiresIn: \"30d\" })",
+      "}"
+    ],
+    "description": "Token Generator"
+  },
+  "userLogin": {
+    "prefix": "uLogin",
+    "body": [
+      " const {",
+      "      userLogin: { userInfo },",
+      "    } = getState()"
+    ],
+    "description": "userLogin"
+  },
+  "api data": {
+    "prefix": "cdata",
+    "body": ["const { data } = await axios.$1(`/$2`, $3 )", ""],
+    "description": "await data"
+  },
+  "awaituser": {
+    "prefix": "auser",
+    "body": ["const user$3 = await User.find$1($2)"],
+    "description": "awaituser"
+  },
+  "Stateless Function Component": {
+    "prefix": "sfc",
+    "body": [
+      "const $1 = ($2) => {",
+      "\treturn ( $0 );",
+      "}",
+      " ",
+      "export default $1;"
+    ],
+    "description": "Stateless Function Component"
+  },
+  "nextarrowFC": {
+    "prefix": "nafce",
+    "body": [
+      "",
+      "const ${1}${TM_FILENAME_BASE} = () => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t<h1>${1}${TM_FILENAME_BASE} </h1>",
+      "\t\t</div>",
+      "\t)",
+      "}",
+      "",
+      "export default ${1}${TM_FILENAME_BASE}",
+      ""
+    ],
+    "description": "Creates a React Arrow Function Component with ES7 module system"
+  },
+  "Next Link": {
+    "prefix": "nlink",
+    "body": ["import Link from \"next/link\""],
+    "description": "Next Link"
+  },
+  "Next Router": {
+    "prefix": "nRouter",
+    "body": ["import { useRouter } from \"next/router\""],
+    "description": "Next Router"
+  },
+  "Next Head": {
+    "prefix": "nHead",
+    "body": ["import Head from \"next/head\""],
+    "description": "Next Head"
+  },
+  "Next Image": {
+    "prefix": "nImage",
+    "body": ["import Image from \"next/image\""],
+    "description": "Next Image"
+  },
+  "getServerSideProps": {
+    "prefix": "getServerSideProps",
+    "body": [
+      "export async function getServerSideProps(context) {",
+      "$1",
+      "  return {",
+      "    props: {},",
+      "  }",
+      "}"
+    ],
+    "description": "getServerSideProps"
+  },
+  "const function": {
+    "prefix": "confunction",
+    "body": ["const $1 = ($2) => {$3}"],
+    "description": "const function"
+  },
+  "const Router": {
+    "prefix": "cRouter",
+    "body": ["const router = useRouter()"],
+    "description": "const Router"
+  },
+  "getStaticProps": {
+    "prefix": "getStaticProps",
+    "body": [
+      "export async function getStaticProps() {",
+      "$1",
+      "",
+      "  return {",
+      "    props: {",
+      "      ",
+      "    }",
+      "  }",
+      "}"
+    ],
+    "description": "getStaticProps"
+  },
+  "getStaticPaths": {
+    "prefix": "getStaticPaths",
+    "body": [
+      "export async function getStaticPaths() {",
+      "$1",
+      "  return {",
+      "    paths: [",
+      "      {",
+      "        params: {},",
+      "      },",
+      "    ],",
+      "  }",
+      "}"
+    ],
+    "description": "getStaticPaths"
+  },
+  "cImage": {
+    "prefix": "cImage",
+    "body": [
+      " <Image",
+      "          src=\"/$1\"",
+      "          alt=\"$2\"",
+      "          width={$3}",
+      "          height={$4}",
+      "        />"
+    ],
+    "description": "cImage"
+  },
+  "crImage": {
+    "prefix": "crImage",
+    "body": [
+      " <Image",
+      "              src={$1}",
+      "              alt={$2}",
+      "              width={$3}",
+      "              height={$4}",
+      "              layout=\"responsive$5\"",
+      "            />"
+    ],
+    "description": "crImage"
+  },
+  "rgetServerSide": {
+    "prefix": "rgetServerSide",
+    "body": [
+      "export const getServerSideProps = wrapper.getServerSideProps(",
+      "  async ({ req, store }) => {",
+      "    await store.dispatch($1(req))",
+      "  }",
+      ")"
+    ],
+    "description": "rgetServerSide"
+  },
+  " e.preventDefault()": {
+    "prefix": " e.preventDefault()",
+    "body": [" e.preventDefault()"],
+    "description": " e.preventDefault()"
+  },
+  "slug": {
+    "prefix": "slug",
+    "body": ["const {$1slug} = router.query"],
+    "description": "slug"
+  },
+  "drouter": {
+    "prefix": "drouter",
+    "body": ["const {$1} = router.$2"],
+    "description": "drouter"
+  },
+  "dreq": {
+    "prefix": "dreq",
+    "body": ["const {$1} = req.$2"],
+    "description": "dreq"
+  },
+  "extry": {
+    "prefix": "extry",
+    "body": [
+      "export const $1 = async(req, res) => {",
+      "try {",
+      "  $2",
+      "} catch (error) {",
+      "  console.log(error)",
+      "}",
+      "",
+      "}"
+    ],
+    "description": "extry"
+  },
+  "cerror": {
+    "prefix": "cerror",
+    "body": ["console.log(error)"],
+    "description": "cerror"
+  },
+  "cftry": {
+    "prefix": "cftry",
+    "body": [
+      "  const $1 = async ($2) => {",
+      "try {",
+      "    $3 ",
+      "    } catch (error) {",
+      "      console.log(error)",
+      "    }",
+      "",
+      "}"
+    ],
+    "description": "cftry"
+  },
+  "improute": {
+    "prefix": "improute",
+    "body": ["import $1 from \"$2\";"],
+    "description": "improute"
+  },
+  "const user": {
+    "prefix": "constuser",
+    "body": ["const user = await User.findById(req.user._id).exec()"],
+    "description": "const user"
+  },
+  "social": {
+    "prefix": "social",
+    "body": [
+      "  if (req.user.id) {",
+      "    const user = await User.findOne({ socialId: req.user.id })",
+      "",
+      "    req.user._id = user._id",
+      "  }"
+    ],
+    "description": "social"
+  },
+  "muiclasses": {
+    "prefix": "muiclasses",
+    "body": ["const classes = useStyles()"],
+    "description": "muiclasses"
+  },
+  "redux getServerSideProps": {
+    "prefix": "rgetServerSideProps",
+    "body": [
+      "export const getServerSideProps = wrapper.getServerSideProps(",
+      "  (store) => async (context$1) => {",
+      "    const { params, req } = context",
+      "",
+      " await store.dispatch($2)",
+      "  }",
+      ")",
+      ""
+    ],
+    "description": "redux getServerSideProps"
+  },
+  "redux store": {
+    "prefix": "rstore",
+    "body": [
+      "import { createStore, applyMiddleware } from \"redux\"",
+      "import { HYDRATE, createWrapper } from \"next-redux-wrapper\"",
+      "import thunk from \"redux-thunk\"",
+      "import reducers from \"./reducers\"",
+      "",
+      "const combineMiddleware = (middleware) => {",
+      "  if (process.env.NODE_ENV !== \"production\") {",
+      "    const { composeWithDevTools } = require(\"redux-devtools-extension\")",
+      "    return composeWithDevTools(applyMiddleware(...middleware))",
+      "  }",
+      "  return applyMiddleware(...middleware)",
+      "}",
+      "",
+      "const reducer = (state, action) => {",
+      "  if (action.type === HYDRATE) {",
+      "    const nextState = {",
+      "      ...state,",
+      "      ...action.payload,",
+      "    }",
+      "    return nextState",
+      "  } else {",
+      "    return reducers(state, action)",
+      "  }",
+      "}",
+      "",
+      "const initStore = () => {",
+      "  return createStore(reducer, combineMiddleware([thunk]))",
+      "}",
+      "",
+      "export const wrapper = createWrapper(initStore)",
+      ""
+    ],
+    "description": "redux store"
+  },
+  "req method": {
+    "prefix": "reqmethod",
+    "body": ["console.log(req.method)"],
+    "description": "req method"
+  },
+  "absoluteUrl": {
+    "prefix": "absoluteUrl",
+    "body": ["const { origin } = absoluteUrl(req)"],
+    "description": "absoluteUrl"
+  },
+
+  "next api auth": {
+    "prefix": "napiauth",
+    "body": [
+      "import NextAuth from 'next-auth'",
+      "import AppleProvider from 'next-auth/providers/apple'",
+      "import FacebookProvider from 'next-auth/providers/facebook'",
+      "import GoogleProvider from 'next-auth/providers/google'",
+      "import EmailProvider from 'next-auth/providers/email'",
+      "",
+      "export default NextAuth({",
+      "  providers: [",
+      "    // OAuth authentication providers...",
+      "    AppleProvider({",
+      "      clientId: process.env.APPLE_ID,",
+      "      clientSecret: process.env.APPLE_SECRET",
+      "    }),",
+      "    FacebookProvider({",
+      "      clientId: process.env.FACEBOOK_ID,",
+      "      clientSecret: process.env.FACEBOOK_SECRET",
+      "    }),",
+      "    GoogleProvider({",
+      "      clientId: process.env.GOOGLE_ID,",
+      "      clientSecret: process.env.GOOGLE_SECRET",
+      "    }),",
+      "    // Passwordless / email sign in",
+      "    EmailProvider({",
+      "      server: process.env.MAIL_SERVER,",
+      "      from: 'NextAuth.js <no-reply@example.com>'",
+      "    }),",
+      "  ]",
+      "})"
+    ],
+    "description": "next api auth"
+  },
+  "next client auth": {
+    "prefix": "nclientauth",
+    "body": [
+      "import { useSession, signIn, signOut } from \"next-auth/react\"",
+      "",
+      "export default function Component() {",
+      "  const { data: session } = useSession()",
+      "  if(session) {",
+      "    return <>",
+      "      Signed in as {session.user.email} <br/>",
+      "      <button onClick={() => signOut()}>Sign out</button>",
+      "    </>",
+      "  }",
+      "  return <>",
+      "    Not signed in <br/>",
+      "    <button onClick={() => signIn()}>Sign in</button>",
+      "  </>",
+      "}"
+    ],
+    "description": "next client auth"
+  },
+  "next _app auth": {
+    "prefix": "n_appauth",
+    "body": [
+      "import { SessionProvider } from \"next-auth/react\"",
+      "",
+      "export default function App({",
+      "  Component, pageProps: { session, ...pageProps }",
+      "}) {",
+      "  return (",
+      "    <SessionProvider session={session}>",
+      "      <Component {...pageProps}/>",
+      "    </SessionProvider>",
+      "  )",
+      "}"
+    ],
+    "description": "next _app auth"
+  }
+}
