@@ -7,6 +7,8 @@ connectDB()
 
 export default async (req, res) => {
   const { email, password } = req.body
+
+  // console.log(req.body)
   try {
     if (!email || !password) {
       return res.status(422).json({ error: "please ass all the fields" })

@@ -7,18 +7,21 @@ connectDB()
 export default async (req, res) => {
   try {
     if (req.method === "POST") {
-      const { email, password } = req.body
+      const { email, password, firstName, lastName } = req.body
+
+      // console.log(email, password, firstName, lastName)
+
       const user = await User.findOne({ email: email })
 
       if (user) {
-        res.status(422).json({ message: "User already exists" })
+        return res.status(422).json({ error: "User already exists" })
       }
 
-      console.log(email, password)
       const HashedPassword = await bcrypt.hash(password, 12)
       const newUser = await new User({
         email: email,
         password: HashedPassword,
+        name: `${firstName} ${lastName}`,
       }).save()
       res.status(200).json({ message: "Sign Up Sucess" })
     }

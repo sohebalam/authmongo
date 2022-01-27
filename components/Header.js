@@ -11,6 +11,7 @@ import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
 import cookie from "js-cookie"
 import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 export default function ButtonAppBar() {
   const cookies = parseCookies()
@@ -18,7 +19,7 @@ export default function ButtonAppBar() {
   const [userState, setUserState] = useState("")
 
   const { data: session } = useSession()
-  console.log(session)
+  console.log(session, cookies.token)
 
   const user = cookies?.user
     ? JSON.parse(cookies.user)
@@ -50,29 +51,35 @@ export default function ButtonAppBar() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            // sx={{ flexGrow: 1 }}
           >
             {/* <MenuIcon /> */}
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            AuthApp
+          </Typography>
+          <Typography variant="h6" component="div">
             {userState && userState.email}
           </Typography>
 
-          {userState ? (
-            <>
-              <Button color="inherit" onClick={logoutHandler}>
-                Logout
-              </Button>
-            </>
-          ) : (
-            <>
-              <Link href="/login">
-                <Button color="inherit">Login</Button>
-              </Link>
-              <Link href="/register">
-                <Button color="inherit">Register</Button>
-              </Link>
-            </>
-          )}
+          <Box sx={{ ml: 2 }}>
+            {userState ? (
+              <>
+                <Button color="inherit" onClick={logoutHandler}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/src/login">
+                  <Button color="inherit">Login</Button>
+                </Link>
+                <Link href="/src/register">
+                  <Button color="inherit">Register</Button>
+                </Link>
+              </>
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
