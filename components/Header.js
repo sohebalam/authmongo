@@ -12,6 +12,8 @@ import { useSession, signOut } from "next-auth/react"
 import cookie from "js-cookie"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { useDispatch, useSelector } from "react-redux"
+import { loadUser } from "../redux/userAction"
 
 export default function ButtonAppBar() {
   const cookies = parseCookies()
@@ -20,6 +22,12 @@ export default function ButtonAppBar() {
 
   const { data: session } = useSession()
   console.log(session, cookies.token)
+  const dispatch = useDispatch()
+
+  const profile = useSelector((state) => state.profile)
+  const { loading, error, dbUser } = profile
+
+  console.log("header", dbUser)
 
   const user = cookies?.user
     ? JSON.parse(cookies.user)
@@ -30,6 +38,11 @@ export default function ButtonAppBar() {
   console.log(userState)
   useEffect(() => {
     session ? setUserState(session.user) : setUserState(user)
+
+    if (user) {
+      console.log("header", user)
+      dispatch(loadUser(user.email))
+    }
   }, [router, setUserState])
 
   const logoutHandler = async () => {
@@ -71,10 +84,10 @@ export default function ButtonAppBar() {
               </>
             ) : (
               <>
-                <Link href="/src/login">
+                <Link href="/src/user/login">
                   <Button color="inherit">Login</Button>
                 </Link>
-                <Link href="/src/register">
+                <Link href="/src/user/register">
                   <Button color="inherit">Register</Button>
                 </Link>
               </>

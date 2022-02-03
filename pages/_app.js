@@ -9,10 +9,9 @@ import theme from "../theme"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+import { wrapper } from "../redux/store"
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   React.useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side")
     if (jssStyles) {
@@ -46,3 +45,5 @@ MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 }
+
+export default wrapper.withRedux(MyApp)

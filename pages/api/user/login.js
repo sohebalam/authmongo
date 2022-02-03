@@ -1,5 +1,5 @@
-import connectDB from "../../connectDB"
-import User from "../../model/userModel"
+import connectDB from "../../../connectDB"
+import User from "../../../model/userModel"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 
@@ -23,11 +23,13 @@ export default async (req, res) => {
         expiresIn: "7d",
       })
 
-      const { email, _id } = user
+      const { email, _id, name } = user
 
-      res
-        .status(201)
-        .json({ token, user: { email, _id }, message: "login successful" })
+      res.status(201).json({
+        token,
+        user: { email, _id, name },
+        message: "login successful",
+      })
     } else {
       return res.status(401).json({ error: "Invalid credentials" })
     }

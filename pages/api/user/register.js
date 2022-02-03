@@ -1,5 +1,5 @@
-import connectDB from "../../connectDB"
-import User from "../../model/userModel"
+import connectDB from "../../../connectDB"
+import User from "../../../model/userModel"
 import bcrypt from "bcryptjs"
 
 connectDB()

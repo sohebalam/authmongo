@@ -20,6 +20,8 @@ import { useRouter } from "next/router"
 import { toast } from "react-toastify"
 import { parseCookies } from "nookies"
 import { GoogleLoginButton } from "react-social-login-buttons"
+import { loadUser } from "../../../redux/userAction"
+import { useDispatch } from "react-redux"
 
 const theme = createTheme()
 
@@ -54,7 +56,7 @@ function Login() {
       }
 
       const { data } = await axios.post(
-        `/api/login`,
+        `/api/user/login`,
         { email, password },
         config
       )
