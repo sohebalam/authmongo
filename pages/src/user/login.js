@@ -71,7 +71,7 @@ function Login() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -119,7 +119,16 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Grid container sx={{ mt: 2, mb: 2 }}>
+            <Grid
+              container
+              sx={{
+                mt: 2,
+                mb: 2,
+                border: 1,
+                borderRadius: 1,
+                borderColor: "grey.400",
+              }}
+            >
               <GoogleLoginButton onClick={() => signIn("google")} />
             </Grid>
 
@@ -127,18 +136,18 @@ function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 2, mb: 2 }}
+              sx={{ mt: 2, mb: 2, backgroundColor: "secondary.main" }}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/src/user/forget" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/src/user/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

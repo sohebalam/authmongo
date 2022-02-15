@@ -14,7 +14,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
 import { loadUser } from "../redux/userAction"
-
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 export default function ButtonAppBar() {
   const cookies = parseCookies()
   const router = useRouter()
@@ -27,9 +27,9 @@ export default function ButtonAppBar() {
   const profile = useSelector((state) => state.profile)
   const { loading, error, dbUser } = profile
 
-  console.log("header", dbUser)
-
-  const user = cookies?.user
+  const user = dbUser
+    ? dbUser
+    : cookies?.user
     ? JSON.parse(cookies.user)
     : session?.user
     ? session?.user
@@ -40,7 +40,7 @@ export default function ButtonAppBar() {
     session ? setUserState(session.user) : setUserState(user)
 
     if (user) {
-      console.log("header", user)
+      // console.log("header", user)
       dispatch(loadUser(user.email))
     }
   }, [router, setUserState])
@@ -66,13 +66,15 @@ export default function ButtonAppBar() {
             sx={{ mr: 2 }}
             // sx={{ flexGrow: 1 }}
           >
-            {/* <MenuIcon /> */}
+            <Link href="http://localhost:3000">
+              <LockOutlinedIcon />
+            </Link>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             AuthApp
           </Typography>
           <Typography variant="h6" component="div">
-            {userState && userState.email}
+            {userState && userState.name}
           </Typography>
 
           <Box sx={{ ml: 2 }}>

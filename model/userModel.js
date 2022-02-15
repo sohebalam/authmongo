@@ -14,9 +14,9 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   resetToken: { type: String },
+  update: { type: String },
 })
 
 export default mongoose.models.User || mongoose.model("User", userSchema)

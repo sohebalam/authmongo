@@ -14,7 +14,7 @@ import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { useRouter } from "next/router"
 import axios from "axios"
-
+import { toast } from "react-toastify"
 const theme = createTheme()
 
 export default function SignIn() {
@@ -28,24 +28,30 @@ export default function SignIn() {
     event.preventDefault()
     const result = new FormData(event.currentTarget)
     // eslint-disable-next-line no-console
-    const conPassword = result.get("conPassword")
-    const password = result.get("password")
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    try {
+      const conPassword = result.get("conPassword")
+      const password = result.get("password")
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+
+      const { data } = await axios.put(
+        `/api/user/reset/${token}`,
+        { conPassword, password },
+        config
+      )
+      toast.success(data.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.error)
     }
-
-    const { data } = await axios.put(
-      `/api/user/reset/${token}`,
-      { conPassword, password },
-      config
-    )
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -98,7 +104,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, backgroundColor: "secondary.main" }}
             >
               Submit
             </Button>

@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import axios from "axios"
+import { toast } from "react-toastify"
 
 const theme = createTheme()
 
@@ -22,21 +23,25 @@ export default function SignIn() {
     const result = new FormData(event.currentTarget)
     // eslint-disable-next-line no-console
 
-    const email = result.get("email")
+    try {
+      const email = result.get("email")
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+
+      const { data } = await axios.post(`/api/user/forget`, { email }, config)
+      toast.success(data.message)
+      router.push("/")
+    } catch (error) {
+      toast.error(error?.response?.data?.error)
     }
-
-    const { data } = await axios.post(`/api/user/forget`, { email }, config)
-
-    console.log(data)
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -74,7 +79,7 @@ export default function SignIn() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, backgroundColor: "secondary.main" }}
               >
                 Submit
               </Button>

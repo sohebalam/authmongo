@@ -84,7 +84,7 @@ function Register() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -173,7 +173,16 @@ function Register() {
                 />
               </Grid>
             </Grid>
-            <Grid container sx={{ mt: 2, mb: 2 }}>
+            <Grid
+              container
+              sx={{
+                mt: 2,
+                mb: 2,
+                border: 1,
+                borderRadius: 1,
+                borderColor: "grey.400",
+              }}
+            >
               <GoogleLoginButton onClick={() => signIn("google")} />
             </Grid>
 
@@ -181,7 +190,7 @@ function Register() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 2, mb: 2 }}
+              sx={{ mt: 2, mb: 2, backgroundColor: "secondary.main" }}
             >
               Sign Up
             </Button>

@@ -3,7 +3,7 @@ import Layout from "../components/Layout"
 import React from "react"
 import PropTypes from "prop-types"
 import Head from "next/head"
-import { ThemeProvider } from "@mui/material/styles"
+import { ThemeProvider, createTheme } from "@mui/material/styles"
 import CssBaseline from "@mui/material//CssBaseline"
 import theme from "../theme"
 import { ToastContainer } from "react-toastify"
@@ -18,6 +18,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
   }, [])
+
+  // const theme = createTheme()
 
   return (
     <React.Fragment>

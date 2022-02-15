@@ -15,7 +15,7 @@ export const loadUser = (email) => async (dispatch) => {
       },
     }
 
-    const { data } = await axios.post(`/api/profile`, { email }, config)
+    const { data } = await axios.post(`/api/user/profile`, { email }, config)
 
     console.log("data", data)
 
