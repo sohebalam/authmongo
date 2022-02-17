@@ -14,10 +14,12 @@ import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import axios from "axios"
 import { toast } from "react-toastify"
+import { useRouter } from "next/router"
 
 const theme = createTheme()
 
 export default function SignIn() {
+  const router = useRouter()
   const handleSubmit = async (event) => {
     event.preventDefault()
     const result = new FormData(event.currentTarget)
@@ -34,7 +36,7 @@ export default function SignIn() {
 
       const { data } = await axios.post(`/api/user/forget`, { email }, config)
       toast.success(data.message)
-      router.push("/")
+      router.push("/login")
     } catch (error) {
       toast.error(error?.response?.data?.error)
     }
