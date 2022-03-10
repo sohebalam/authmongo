@@ -51,7 +51,7 @@ export default function SignIn() {
   }
 
   return (
-    <ThemeProvider>
+    <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -123,6 +123,6 @@ export default function SignIn() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   )
 }

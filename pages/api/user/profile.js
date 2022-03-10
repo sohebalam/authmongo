@@ -13,6 +13,8 @@ export default async (req, res) => {
 
       const user = await User.findOne({ email: email })
 
+      user.password = undefined
+
       return res.status(200).send(user)
     }
   } catch (err) {

@@ -5,7 +5,7 @@ import {
 } from "./userTypes"
 import axios from "axios"
 
-export const loadUser = (email) => async (dispatch) => {
+export const loadUser = (email, user) => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST })
 
@@ -21,7 +21,7 @@ export const loadUser = (email) => async (dispatch) => {
 
     dispatch({
       type: LOAD_USER_SUCCESS,
-      payload: data,
+      payload: data || user,
     })
   } catch (error) {
     dispatch({

@@ -27,9 +27,7 @@ export default function ButtonAppBar() {
   const profile = useSelector((state) => state.profile)
   const { loading, error, dbUser } = profile
 
-  const user = dbUser
-    ? dbUser
-    : cookies?.user
+  const user = cookies?.user
     ? JSON.parse(cookies.user)
     : session?.user
     ? session?.user
@@ -41,7 +39,7 @@ export default function ButtonAppBar() {
 
     if (user) {
       // console.log("header", user)
-      dispatch(loadUser(user.email))
+      dispatch(loadUser(user.email, user))
     }
   }, [router, setUserState])
 
@@ -73,9 +71,9 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             AuthApp
           </Typography>
-          <Typography variant="h6" component="div">
-            {userState && userState.name}
-          </Typography>
+          <Link href="/src/user/profile">
+            <Button color="inherit">{userState && userState.name}</Button>
+          </Link>
 
           <Box sx={{ ml: 2 }}>
             {userState ? (

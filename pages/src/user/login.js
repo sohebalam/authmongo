@@ -22,6 +22,7 @@ import { parseCookies } from "nookies"
 import { GoogleLoginButton } from "react-social-login-buttons"
 import { loadUser } from "../../../redux/userAction"
 import { useDispatch } from "react-redux"
+import { wrapper } from "../../../redux/store"
 
 const theme = createTheme()
 
@@ -43,7 +44,7 @@ function Login() {
     if (cookies?.user) {
       router.push("/")
     }
-  }, [router])
+  }, [router, session])
 
   const SubmitHandler = async (e) => {
     e.preventDefault()
@@ -71,7 +72,7 @@ function Login() {
   }
 
   return (
-    <ThemeProvider>
+    <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -155,18 +156,36 @@ function Login() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   )
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context)
+// export async function getServerSideProps(context) {
+//   const session = await getSession(context)
 
-  return {
-    props: {
-      session,
-    },
-  }
-}
+//   return {
+//     props: {
+//       session,
+//     },
+//   }
+// }
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ req }) => {
+      const session = await getSession({ req })
+      const cookies = parseCookies()
+
+      const user = cookies?.user ? JSON.parse(cookies.user) : session?.user
+
+      await store.dispatch(loadUser(user?.email, user))
+
+      return {
+        props: {
+          session,
+        },
+      }
+    }
+)
 
 export default Login

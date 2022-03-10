@@ -18,7 +18,7 @@ export default async (req, res) => {
 
       const updatedUser = await user.save()
 
-      res.status(200).json({ message: updatedUser })
+      return res.status(200).json({ message: updatedUser })
     } else {
       return res.status(401).json({ error: "Invalid credentials" })
     }
