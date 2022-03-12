@@ -19,9 +19,9 @@ export default function ButtonAppBar() {
   const cookies = parseCookies()
   const router = useRouter()
   const [userState, setUserState] = useState("")
+  const [isLoggedIn, setisLoggedIn] = useState(true)
 
   const { data: session } = useSession()
-  console.log(session, cookies.token)
   const dispatch = useDispatch()
 
   const profile = useSelector((state) => state.profile)
@@ -38,10 +38,17 @@ export default function ButtonAppBar() {
     session ? setUserState(session.user) : setUserState(user)
 
     if (user) {
-      // console.log("header", user)
       dispatch(loadUser(user.email, user))
     }
   }, [router, setUserState])
+  useEffect(() => {
+    if (user) {
+      setisLoggedIn(true)
+    }
+    if (!user) {
+      router.push("/src/user/login")
+    }
+  }, [isLoggedIn])
 
   const logoutHandler = async () => {
     if (session) {
@@ -49,6 +56,7 @@ export default function ButtonAppBar() {
     }
     cookie.remove("token")
     cookie.remove("user")
+    setisLoggedIn(false)
     setUserState("")
   }
 
